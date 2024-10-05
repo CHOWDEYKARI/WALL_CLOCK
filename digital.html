@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Clock</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #6a1b9a, #ab47bc);
+      margin: 0;
+    }
+
+    .clock-container {
+      text-align: center;
+      padding: 30px;
+      border-radius: 20px;
+      background: #333;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      max-width: 90%;
+      width: 500px;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .digital-clock {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 5rem;
+      font-weight: 700;
+      color: #00e676;
+      border: 5px solid #00e676;
+      border-radius: 10px;
+      padding: 20px;
+      background: #000;
+      text-shadow: 0 0 10px rgba(0, 255, 0, 0.7);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @media (max-width: 576px) {
+      .digital-clock {
+        font-size: 3rem;
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="clock-container">
+    <div class="digital-clock" id="clock">
+      <span id="time"></span>
+    </div>
+  </div>
+
+  <script>
+    function updateClock() {
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      const timeString = `${hours}:${minutes}:${seconds}`;
+      document.getElementById('time').textContent = timeString;
+    }
+
+    setInterval(updateClock, 1000);
+    updateClock();  // Initialize clock immediately
+  </script>
+</body>
+</html>

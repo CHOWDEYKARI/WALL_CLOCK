@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analog Clock</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #825CFF;
+      margin: 0;
+    }
+    
+    .clock {
+      position: relative;
+      width: 80vmin;
+      height: 80vmin;
+      max-width: 350px;
+      max-height: 350px;
+      border: 12px solid #333;
+      border-radius: 50%;
+      background: radial-gradient(circle, #fff, #f0f0f0);
+      box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+    }
+
+    .center-pin {
+      position: absolute;
+      width: 5%;
+      height: 5%;
+      background: radial-gradient(circle, #666, #333);
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.5), 0 0 10px rgba(0, 0, 0, 0.7);
+    }
+
+    .hour-hand, .minute-hand, .second-hand {
+      position: absolute;
+      bottom: 50%;
+      left: 50%;
+      transform-origin: bottom center;
+      transform: rotate(90deg);
+      border-radius: 2px;
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .hour-hand {
+      width: 8px;
+      height: 30%;
+      background: linear-gradient(to bottom, #444, #222);
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 0, 0, 0.7);
+    }
+
+    .minute-hand {
+      width: 6px;
+      height: 45%;
+      background: linear-gradient(to bottom, #666, #333);
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 0, 0, 0.7);
+    }
+
+    .second-hand {
+      width: 3px;
+      height: 55%;
+      background: linear-gradient(to bottom, #cc0000, #800000);
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.7), 0 0 25px rgba(255, 0, 0, 1);
+    }
+
+    .marker {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: #333;
+      border-radius: 50%;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    }
+
+    .marker1 { top: 5%; left: 50%; transform: translateX(-50%); }
+    .marker2 { bottom: 5%; left: 50%; transform: translateX(-50%); }
+    .marker3 { left: 5%; top: 50%; transform: translateY(-50%); }
+    .marker4 { right: 5%; top: 50%; transform: translateY(-50%); }
+  </style>
+</head>
+<body>
+  <div class="clock">
+    <div class="hour-hand"></div>
+    <div class="minute-hand"></div>
+    <div class="second-hand"></div>
+    <div class="center-pin"></div>
+    <div class="marker marker1"></div>
+    <div class="marker marker2"></div>
+    <div class="marker marker3"></div>
+    <div class="marker marker4"></div>
+  </div>
+
+  <script>
+    const hourHand = document.querySelector('.hour-hand');
+    const minuteHand = document.querySelector('.minute-hand');
+    const secondHand = document.querySelector('.second-hand');
+
+    function setClock() {
+      const now = new Date();
+
+      const seconds = now.getSeconds();
+      const minutes = now.getMinutes();
+      const hours = now.getHours();
+
+      const secondDegrees = (seconds / 60) * 360;
+      const minuteDegrees = (minutes / 60) * 360 + (seconds / 60) * 6;
+      const hourDegrees = (hours % 12 / 12) * 360 + (minutes / 60) * 30;
+
+      secondHand.style.transform = `rotate(${secondDegrees}deg)`;
+      minuteHand.style.transform = `rotate(${minuteDegrees}deg)`;
+      hourHand.style.transform = `rotate(${hourDegrees}deg)`;
+    }
+
+    setInterval(setClock, 1000);
+    setClock();
+  </script>
+</body>
+</html>
